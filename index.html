@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAMAC FinIQ · Finance AI Platform</title>
+<meta name="description" content="DAMAC Finance AI Platform — one console for CloseIQ, ForecastIQ, PaymentsIQ, ReconIQ and ValuationIQ. Powered by Tiger Analytics.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23F08C1E'/%3E%3Ctext x='16' y='22' font-family='Poppins,Arial' font-size='16' font-weight='700' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#F08C1E; --orange-ink:#B4630B;
+    --bg:#F6F5F1; --bg2:#FBFAF7; --card:#FFFFFF; --ink:#1C1C1A;
+    --txt:#2A2A27; --muted:#6E6E66; --faint:#9A9A90;
+    --line:#E7E4DC; --line2:#EFEDE6;
+    --shadow:0 1px 2px rgba(28,28,26,.04), 0 8px 24px rgba(28,28,26,.06);
+    --shadow-hi:0 2px 4px rgba(28,28,26,.06), 0 16px 40px rgba(28,28,26,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%}
+  body{
+    font-family:'Poppins',-apple-system,system-ui,sans-serif;color:var(--txt);
+    background:
+      radial-gradient(900px 480px at 88% -10%, rgba(240,140,30,.10), transparent 60%),
+      radial-gradient(700px 420px at 4% 108%, rgba(31,162,166,.08), transparent 60%),
+      var(--bg);
+    min-height:100vh;
+  }
+  a{text-decoration:none;color:inherit}
+
+  /* Top bar */
+  .topbar{
+    position:sticky;top:0;z-index:10;background:rgba(251,250,247,.82);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .inner{max-width:1240px;margin:0 auto;padding:13px 26px;display:flex;align-items:center;gap:12px}
+  .logo{width:32px;height:32px;border-radius:8px;background:var(--orange);display:flex;align-items:center;
+    justify-content:center;font-weight:700;color:#fff;font-size:16px;box-shadow:0 4px 12px rgba(240,140,30,.35)}
+  .brand{font-size:14.5px;font-weight:600;line-height:1.15}
+  .brand small{display:block;font-size:10.5px;color:var(--muted);font-weight:500}
+  .topbar .spacer{flex:1}
+  .status-chip{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;
+    font-size:11px;color:#1F7A4D;background:#E7F6ED;border:1px solid #CDEBD9;border-radius:999px;padding:5px 11px}
+  .status-chip .dot{width:7px;height:7px;border-radius:50%;background:#22A45D;box-shadow:0 0 0 3px rgba(34,164,93,.18)}
+
+  /* Layout */
+  .layout{max-width:1240px;margin:0 auto;padding:34px 26px 56px;
+    display:grid;grid-template-columns:1fr 316px;gap:26px;align-items:start}
+
+  /* Hero */
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);
+    border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:#fff}
+  h1{font-size:clamp(30px,4.6vw,46px);line-height:1.05;font-weight:700;letter-spacing:-.02em;margin:18px 0 0}
+  h1 .g{background:linear-gradient(120deg,var(--orange),#E0611A);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-size:15px;line-height:1.6;color:var(--muted);max-width:640px;margin-top:13px}
+
+  /* App grid */
+  .grid{margin-top:30px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .app{
+    position:relative;display:flex;flex-direction:column;gap:12px;padding:20px 20px 18px;
+    background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
+    transition:transform .16s, box-shadow .16s, border-color .16s;overflow:hidden;
+  }
+  .app::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ac)}
+  .app:hover{transform:translateY(-3px);box-shadow:var(--shadow-hi);border-color:color-mix(in srgb,var(--ac) 45%,var(--line))}
+  .app .row{display:flex;align-items:center;gap:12px}
+  .app .ic{width:40px;height:40px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;
+    font-weight:700;color:#fff;font-size:15px;background:var(--ac);box-shadow:0 6px 16px color-mix(in srgb,var(--ac) 35%,transparent)}
+  .app .nm{font-size:16px;font-weight:600}
+  .app .tg{font-size:12px;color:var(--faint);margin-top:1px}
+  .app p{font-size:12.8px;line-height:1.55;color:var(--muted);flex:1}
+  .app .foot{display:flex;align-items:center;justify-content:space-between;margin-top:2px}
+  .app .live{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-family:'JetBrains Mono',monospace;
+    color:var(--muted)}
+  .app .live .d{width:6px;height:6px;border-radius:50%;background:#22A45D;box-shadow:0 0 0 3px rgba(34,164,93,.16)}
+  .app .go{font-size:12.5px;font-weight:600;color:var(--ac);display:inline-flex;align-items:center;gap:5px}
+  .app:hover .go{gap:9px}
+
+  /* Right pane — Agents roster (light) */
+  .pane{position:sticky;top:76px;background:var(--bg2);border:1px solid var(--line);border-radius:18px;
+    box-shadow:var(--shadow);overflow:hidden}
+  .pane .hd{padding:16px 18px 13px;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:9px}
+  .pane .hd .t{font-size:13.5px;font-weight:600}
+  .pane .hd .t small{display:block;font-size:10.5px;color:var(--faint);font-weight:500}
+  .pane .hd .cnt{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:#1F7A4D;
+    background:#E7F6ED;border:1px solid #CDEBD9;border-radius:999px;padding:3px 9px}
+  .roster{padding:8px}
+  .agent{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:12px;transition:background .14s}
+  .agent:hover{background:#fff;box-shadow:var(--shadow)}
+  .agent .av{width:34px;height:34px;border-radius:9px;flex:none;display:flex;align-items:center;justify-content:center;
+    font-weight:700;color:#fff;font-size:13px;background:var(--ac)}
+  .agent .meta{flex:1;min-width:0}
+  .agent .an{font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px}
+  .agent .an .st{width:7px;height:7px;border-radius:50%;background:#22A45D;box-shadow:0 0 0 3px rgba(34,164,93,.16);flex:none}
+  .agent .ad{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .agent .arr{color:var(--faint);font-size:15px;transition:.14s}
+  .agent:hover .arr{color:var(--ac);transform:translateX(2px)}
+  .pane .pfoot{padding:12px 16px;border-top:1px solid var(--line2);font-size:11px;color:var(--faint);text-align:center}
+
+  footer{max-width:1240px;margin:0 auto;padding:8px 26px 40px;font-size:12px;color:var(--faint);
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  footer b{color:var(--txt);font-weight:600}
+
+  @media(max-width:980px){.layout{grid-template-columns:1fr}.pane{position:static}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="inner">
+      <span class="logo">T</span>
+      <div class="brand">DAMAC FinIQ<small>Powered by Tiger Analytics</small></div>
+      <div class="spacer"></div>
+      <span class="status-chip"><span class="dot"></span>5 agents live</span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- Main -->
+    <main>
+      <span class="eyebrow">Finance Transformation · Wave 1</span>
+      <h1>The <span class="g">Finance AI</span> Platform</h1>
+      <p class="sub">One console for DAMAC's autonomous finance agents. Launch any capability —
+      each runs as its own standalone app.</p>
+
+      <div class="grid" id="grid"></div>
+    </main>
+
+    <!-- Right pane: Agents roster -->
+    <aside>
+      <div class="pane">
+        <div class="hd">
+          <div class="t">Agents<small>Autonomous finance workforce</small></div>
+          <span class="cnt">5 online</span>
+        </div>
+        <div class="roster" id="roster"></div>
+        <div class="pfoot">All agents operational · monitored 24/7</div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div>DAMAC Finance AI Platform — 5 standalone agents</div>
+    <div>DAMAC &times; <b>Tiger Analytics</b></div>
+  </footer>
+
+<script>
+  var APPS = [
+    {key:'CL', name:'CloseIQ',     tag:'Autonomous Month-End Close',   ac:'#F08C1E', url:'https://shivateen.github.io/CloseIQ/',
+     blurb:'TB scrutiny, variance analysis, intercompany recon and the Sage assistant. Day 7 → Day 3 close.',
+     role:'Close controller'},
+    {key:'FC', name:'ForecastIQ',  tag:'AI Financial Forecasting',     ac:'#0EA5A4', url:'https://shivateen.github.io/ForecastIQ/',
+     blurb:'Assumptions-driven model, scenario planning, a rolling 3-year plan and revenue levers.',
+     role:'FP&A forecaster'},
+    {key:'PM', name:'PaymentsIQ',  tag:'IPC Certificate Validation',   ac:'#D97706', url:'https://shivateen.github.io/PaymentsIQ/',
+     blurb:'IPC validation — 10 certificates, AED 28M queue, AI benchmarking and aberration detection.',
+     role:'Payments validator'},
+    {key:'RC', name:'ReconIQ',     tag:'Intercompany Reconciliation',  ac:'#2EA86D', url:'https://shivateen.github.io/ReconIQ/',
+     blurb:'IC matching at scale — 400+ entities, 2,420 combinations, AED 2.6M open items resolved.',
+     role:'IC reconciler'},
+    {key:'VL', name:'ValuationIQ', tag:'M&A Valuation Co-pilot',       ac:'#7C5CFF', url:'https://shivateen.github.io/ValuationIQ/',
+     blurb:'DCF & comparables, a real-time voice co-pilot and dialogue-with-data for live deal work.',
+     role:'Valuation co-pilot'}
+  ];
+
+  var grid = document.getElementById('grid');
+  var roster = document.getElementById('roster');
+
+  APPS.forEach(function(a){
+    var c = document.createElement('a');
+    c.className = 'app'; c.href = a.url; c.style.setProperty('--ac', a.ac);
+    c.innerHTML =
+      '<div class="row"><div class="ic">'+a.key+'</div>'
+      + '<div><div class="nm">'+a.name+'</div><div class="tg">'+a.tag+'</div></div></div>'
+      + '<p>'+a.blurb+'</p>'
+      + '<div class="foot"><span class="live"><span class="d"></span>LIVE</span>'
+      + '<span class="go">Launch →</span></div>';
+    grid.appendChild(c);
+
+    var r = document.createElement('a');
+    r.className = 'agent'; r.href = a.url; r.style.setProperty('--ac', a.ac);
+    r.innerHTML =
+      '<div class="av">'+a.key+'</div>'
+      + '<div class="meta"><div class="an"><span class="st"></span>'+a.name+'</div>'
+      + '<div class="ad">'+a.role+'</div></div>'
+      + '<div class="arr">→</div>';
+    roster.appendChild(r);
+  });
+</script>
+</body>
+</html>
